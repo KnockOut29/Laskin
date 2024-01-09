@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <title>Laskin</title>
+    <style>
+      .content {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+      }
+      .calculator {
+        border-color: #e644b5;
+        border-style: outset;
+        border-width: 15px;
+        width: 200px;
+        height: 300px;
+        margin: auto;
+        text-align: center;
+        background-color: #fadff2;
+      }
+
+      input[type="button"] {
+        display: inline-block;
+        margin: 2px;
+		margin-bottom: 10px;
+        padding: 5px 10px;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        outline: none;
+        color: #fff;
+        background-color: #f060cc;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 5px rgb(209, 35, 166);
+      }
+
+      input[type="button"]:hover {
+        background-color: #d659b1;
+      }
+
+      input[type="button"]:active {
+        background-color: #c954ab;
+        box-shadow: 0 5px rgb(179, 62, 149);
+        transform: translateY(4px);
+      }
+    </style>
+    <script type="text/javascript">
+      // Määritellään merkkijonomuuttuja ja alustetaan se tyhjällä merkkijonolla:
+      var laskutoimitus = "";
+
+      // Jokainen napin klikkaus kutsuu Nappi-funktiota:
+      function Nappi(valinta) {
+        // Jos on klikattu C-painiketta, tulostetaan näyttöön 0
+        // ja tyhjennetään laskutoimitus-muuttujan sisältö:
+        if (valinta == "c") {
+          document.laskin.naytto.value = "0";
+          laskutoimitus = "";
+        }
+
+        // Jos on klikattu =-painiketta, muunnetaan merkkijono matemaattiseen
+        // muotoon, lasketaan lauseke ja tulostetaan se tekstikenttään:
+        else if (valinta == "=")
+          document.laskin.naytto.value = eval(laskutoimitus);
+        // Jos on klikattu jotain muuta painiketta, lisätään parametrina saatu
+        // merkki tai numero laskutoimitusmuuttujan perään:
+        else {
+          laskutoimitus = laskutoimitus + valinta;
+
+          // Jos ensimmäinen merkki ei ole numero, annetaan virheilmoitus.
+          // Muuten tulostetaan laskutoimitus merkki jonona tekstikenttään:
+          if (isNaN(laskutoimitus.charAt(0)))
+            document.laskin.naytto.value = "Virhe!";
+          else document.laskin.naytto.value = laskutoimitus;
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="content">
+      <h1>JavaScript-laskin</h1>
+      <!-- Laskin on muodostettu tavallisista lomake-elementeistä. Jokainen painike
+kutsuu samaa funktiota, mutta vie sille eri parametrin. -->
+      <div class="calculator">
+        <br /><br />
+        <form name="laskin">
+          <input type="text" size="15" name="naytto" />
+          <br />
+		  <br>
+          <input type="button" value=" 7 " onclick="Nappi(7)" />
+          <input type="button" value=" 8 " onclick="Nappi(8)" />
+          <input type="button" value=" 9 " onclick="Nappi(9)" />
+          <input type="button" value="  / " onclick="Nappi('/')" />
+          <br />
+          <input type="button" value=" 4 " onclick="Nappi(4)" />
+          <input type="button" value=" 5 " onclick="Nappi(5)" />
+          <input type="button" value=" 6 " onclick="Nappi(6)" />
+          <input type="button" value="  * " onclick="Nappi('*')" />
+          <br />
+          <input type="button" value=" 1 " onclick="Nappi(1)" />
+          <input type="button" value=" 2 " onclick="Nappi(2)" />
+          <input type="button" value=" 3 " onclick="Nappi(3)" />
+          <input type="button" value="  - " onclick="Nappi('-')" />
+          <br />
+          <input type="button" value=" . " onclick="Nappi('.')" />
+          <input type="button" value=" 0 " onclick="Nappi(0)" />
+          <input type="button" value=" C " onclick="Nappi('c')" />
+          <input type="button" value=" + " onclick="Nappi('+')" />
+          <br />
+          <input type="button" value=" = " onclick="Nappi('=')" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
